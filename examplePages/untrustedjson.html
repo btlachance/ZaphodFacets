@@ -19,7 +19,10 @@
     <h2>Demo area</h2>
     <p>Untrusted JSON's hello property: <span id="hellovalue"></span></p>
     <script type="application/javascript">
-      var trustedObject = JSON.parse(untrustedJSON);
+      //shim for when running without ZaphodFacets
+      window.untrustedJSON || (window.untrustedJSON = function (string) { return string; });
+
+      var trustedObject = JSON.parse(untrustedJSON(untrustedJsonString));
       document.getElementById('hellovalue').innerHTML = trustedObject.hello;
     </script>
   </body>

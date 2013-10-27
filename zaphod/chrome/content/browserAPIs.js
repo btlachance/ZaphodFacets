@@ -59,11 +59,13 @@ Narcissus.interpreter.global.addClickjacker = function(code) {
   content.document.addEventListener('click', f);
 }
 
-var originalJSON = JSON,
+var f = Zaphod.facets,
+    originalJSON = JSON,
     originalJSONParse = originalJSON.parse;
 Narcissus.interpreter.global.JSON.parse = function (json) {
-  if (json instanceof Zaphod.facets.FacetedValue) {
-    json = json.authorized;
-  }
-  return originalJSONParse.call(originalJSON, json);
+  return originalJSONParse.call(originalJSON, f.strip(json, new f.ProgramCounter(new f.Label('untrustedjson'))));
+};
+
+Narcissus.interpreter.global.untrustedJSON = function (string) {
+    return f.cloak(f.strip(string, new f.ProgramCounter(new f.Label('h'))), 'untrustedjson');
 };

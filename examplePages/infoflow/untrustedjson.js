@@ -1,1 +1,1 @@
-window.untrustedJSON = '{"hello": "dolly"}';
+window.untrustedJsonString = '{"hello": "dolly"}';
