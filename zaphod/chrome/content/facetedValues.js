@@ -325,5 +325,10 @@ Zaphod.facets = {};
                 rebuild(v.unauthorized));
     }
 
+    exports.principalName = function (url) {
+        if (url.indexOf('http') === -1) return null;
+        var p = url.slice(0, url.lastIndexOf('/'));
+        return p;
+    }
 
 })(Zaphod.facets);

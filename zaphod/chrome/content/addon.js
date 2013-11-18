@@ -389,6 +389,8 @@
     eval(read(baseURL + 'browserAPIs.js'));
 
     loadDOM();
+
+    eval(read(baseURL + 'browserPolicy.js'));
   }
 
   Zaphod.onPageLoad = function(aEvent) {
