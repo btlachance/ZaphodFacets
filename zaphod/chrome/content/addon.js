@@ -344,6 +344,8 @@
       evaluate('copyDOMintoDomjs()');
       //FIXME: Clear out utils and hostDoc from narcissus object
 
+      
+
       Narcissus.interpreter.getValueHook = function(name) {
         evaluate('var ' + name + ' = document.getElementById(' + name + ');');
       }
@@ -385,10 +387,13 @@
     Narcissus.options.hiddenHostGlobals.setInterval = true;
     Narcissus.options.hiddenHostGlobals.setTimeout = true;
     eval(read(baseURL + 'facetedValues.js'));
+    eval(read(baseURL + 'pap.js'));
     eval(read(baseURL + 'narcissus/jsexec.js'));
     eval(read(baseURL + 'browserAPIs.js'));
 
     loadDOM();
+
+    // eval(read(baseURL + 'pap-dom.js'));
   }
 
   Zaphod.onPageLoad = function(aEvent) {

@@ -4,7 +4,7 @@
  * This file holds utilities needed for dom.js.
  */
 
-(function(exports) {
+(function(exports, pap) {
 
   // Copied from dom.js
   const MUTATE_VALUE = 1;
@@ -207,25 +207,10 @@
           nodeMap[o.target].data = o.data;
           break;
         case MUTATE_ATTR:
-          // The auth function specifies when to use a high and a low facet.
-          // (Note: this policy is for a demo, and is not intended
-          // to be anything approaching comprehensive at this point).
-          auth = function(fv) {
-            // Src attributes might load data from external sites.
-            // Use the public view if that happens.
-            if (o.name === 'src') {
-              var authorized = getAuth(fv);
-              return authorized.indexOf('http') !== 0;
-            }
-            // document.location, window.location, location.href can cause
-            // a new page to load.  We permit this only if the value is high-integrity.
-            // FIXME: make these magic properties instead.
-            //else if (o.name === 'location' || o.name === 'href') {
-            //  return true;
-            //}
-            else return true;
-          }
-          newVal = parseFacetedValue(o.value, auth);
+          newVal = pap.evaluateWrite(
+            pap.channel.network(o.value),
+            o.value
+          );
           if (o.ns === null && o.prefix === null) {
             nodeMap[o.target].setAttribute(o.name, newVal);
           }
@@ -287,5 +272,5 @@
     }
   }
 
-})(this);
+})(this, Zaphod.pap);
 

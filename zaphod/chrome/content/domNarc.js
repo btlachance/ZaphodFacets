@@ -7078,13 +7078,13 @@ defineLazyProperty(impl, "Node", function() {
                 // If the child already has a parent, it needs to be
                 // removed from that parent, which may also uproot it
                 if (child.parentNode) child.remove();
-                
+
                 // Now insert the child into the parent's array of children
                 child.parentNode = parent;
                 splice(kids, index, 0, child);
                 parent.modify();
                 child._index = index;              // Optimization
-                
+
                 // And root the child if necessary
                 if (parent.rooted) parent.ownerDocument.mutateInsert(child);
             }
